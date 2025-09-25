@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BWN Notícias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="javascript.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Menu   -->
+    <div id="side-menu" class="fixed inset-y-0 left-0 w-64 bg-gray-900 text-white transform -translate-x-full transition-transform duration-300 z-50 shadow-lg">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-xl font-bold">Menu</div>
+                <button onclick="toggleMenu()" class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <nav>
+                <a href="./politica.html" class="block p-4 rounded-lg hover:bg-gray-700 transition-colors duration-200">Política</a>
+                <a href="./Esporte.html" class="block p-4 rounded-lg hover:bg-gray-700 transition-colors duration-200">Esporte</a>
+                <a href="./meioambiente.html" class="block p-4 rounded-lg hover:bg-gray-700 transition-colors duration-200">Meio Ambiente</a>
+                <a href="./economia.html" class="block p-4 rounded-lg hover:bg-gray-700 transition-colors duration-200">Economia</a>
+                <a href="./internacional.html" class="block p-4 rounded-lg hover:bg-gray-700 transition-colors duration-200">Internacional</a>
+                <a href="./saude.html" class="block p-4 rounded-lg hover:bg-gray-700 transition-colors duration-200">Saúde</a>
+                <a href="./tecnologia.html" class="block p-4 rounded-lg hover:bg-gray-700 transition-colors duration-200">Tecnologia</a>
+                <a href="./educaçao.html" class="block p-4 rounded-lg hover:bg-gray-700 transition-colors duration-200">Educação</a>
+                <a href="./autobilismo.html" class="block p-4 rounded-lg hover:bg-gray-700 transition-colors duration-200">Autobilismo</a>
+                <a href="./entrerimento.html" class="block p-4 rounded-lg hover:bg-gray-700 transition-colors duration-200">Entretenimento</a>
+                
+            </nav>
+        </div>
+    </div>
+
+    
+    <div id="menu-overlay" onclick="toggleMenu()" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden transition-opacity duration-300"></div>
+
+    <!-- Cabeçalho -->
+    <header class="bg-gradient-blue text-white p-4 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center">
+                <button onclick="toggleMenu()" class="text-white focus:outline-none mr-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            <div class="flex-grow text-center text-2xl font-bold tracking-wider">BWN</div>
+            <div class="flex items-center space-x-4">
+                <div class="relative hidden md:block">
+                    <input type="text" placeholder="Buscar" class="w-48 px-4 py-2 text-sm text-gray-800 rounded-full focus:outline-none">
+                    <svg class="w-5 h-5 text-gray-500 absolute right-3 top-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                </div>
+                <a href="login.html" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Seção de Notícias  -->
+    <div class="container mx-auto mt-6 px-4">
+        <div class="relative w-full h-48 md:h-64 rounded-xl overflow-hidden shadow-lg">
+            
+            <img src="https://jojonoticias.com.br/wp-content/uploads/2025/09/camara-vergonha.jpg" alt="Câmara dos Deputados" class="noticia-imagem">
+            
+            <div class="absolute inset-0 flex items-center justify-between p-4">
+                <button class="bg-white bg-opacity-30 p-2 rounded-full text-black">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <button class="bg-white bg-opacity-30 p-2 rounded-full text-black">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Seção Últimas Notícias -->
+        <h2 class="text-2xl font-bold mt-8 mb-4">Últimas Notícias</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <a href="./pagina2.html" class="block bg-white rounded-xl shadow-md overflow-hidden transform transition-transform duration-200 hover:scale-105 cursor-pointer">
+                <div class="w-full h-32">
+                    <img src="https://assets.blogdobg.com.br/uploads/2025/09/padilha.jpg" alt="Prédio da Câmara dos Deputados" class="noticia-imagem">
+                </div>
+                <div class="p-4">
+                    <p class="text-gray-600">Câmara aprova PEC da Blindagem e conclui votação de destaques nesta quarta</p>
+                </div>
+            </a>
+            
+            <a href="./pagina25.html" class="block bg-white rounded-xl shadow-md overflow-hidden transform transition-transform duration-200 hover:scale-105 cursor-pointer">
+                <div class="w-full h-32">
+                    <img src="https://static.wixstatic.com/media/2fa56b_ee49ffbfe702448fa662707583a98432~mv2.png/v1/fill/w_670,h_454,al_c,lg_1,q_85,enc_avif,quality_auto/2fa56b_ee49ffbfe702448fa662707583a98432~mv2.png" alt="Ilustração de Inteligência Artificial" class="noticia-imagem">
+                </div>
+                <div class="p-4">
+                    <p class="text-gray-600">"Supercomputador" e laboratório de IA são inaugurados na UnB</p>
+                </div>
+            </a>
+            
+            <a href="./pagina13.html" class="block bg-white rounded-xl shadow-md overflow-hidden transform transition-transform duration-200 hover:scale-105 cursor-pointer">
+                <div class="w-full h-32">
+                    <img src="https://conteudo.imguol.com.br/c/noticias/54/2025/08/12/fernando-haddad-ministro-da-fazenda-1755024636126_v2_900x506.jpg" alt="Gráfico da bolsa de valores" class="noticia-imagem">
+                </div>
+                <div class="p-4">
+                    <p class="text-gray-600">Juros futuros caem com falas de Haddad e possível corte de juros nos EUA</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Seção Destaques da Semana -->
+        <h2 class="text-2xl font-bold mt-8 mb-4">Destaques da semana</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <a href="./pagina38.html" class="block bg-white rounded-xl shadow-md overflow-hidden transform transition-transform duration-200 hover:scale-105 cursor-pointer">
+                <div class="w-full h-32">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXW4KcNszCOZ5aZUGGPEatSvXskJ4zHbqzHA&s" alt="Cartaz do filme Demon Slayer" class="noticia-imagem">
+                </div>
+                <div class="p-4">
+                    <p class="text-gray-600">Discussão, choro e cara na porta: classificação indicativa de 'Demon Slayer' leva polêmica aos cinemas no Brasil</p>
+                </div>
+            </a>
+            
+            <a href="./pagina5.html" class="block bg-white rounded-xl shadow-md overflow-hidden transform transition-transform duration-200 hover:scale-105 cursor-pointer">
+                <div class="w-full h-32">
+                    <img src="https://cdn.folhape.com.br/upload/dn_arquivo/2025/09/afp-20250916-74qu69a-v1-midres-fbleurc1realmadridmarseille-1.jpg" alt="Mbappé comemora um gol" class="noticia-imagem">
+                </div>
+                <div class="p-4">
+                    <p class="text-gray-600">Com um a menos, Real vira jogo com dois gols de pênaltis de Mbappé e vence Olympique na Champions League</p>
+                </div>
+            </a>
+           
+            <a href="./pagina29.html" class="block bg-white rounded-xl shadow-md overflow-hidden transform transition-transform duration-200 hover:scale-105 cursor-pointer">
+                <div class="w-full h-32">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtXjGK1iJHR2VlyczmTkb4kmbERhAQq0I4qw&s" alt="Cérebro com engrenagens" class="noticia-imagem">
+                </div>
+                <div class="p-4">
+                    <p class="text-gray-600">Uso de inteligência artificial cresce no Brasil e impacta educação</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    
+</body>
+</html>

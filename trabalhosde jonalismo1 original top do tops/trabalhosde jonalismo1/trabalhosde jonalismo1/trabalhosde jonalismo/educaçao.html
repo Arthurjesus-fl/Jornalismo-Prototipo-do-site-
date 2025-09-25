@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BWN - Educação</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Cabeçalho -->
+    <header class="bg-gradient-blue text-white p-4 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="./segundapagina.html" class="text-white focus:outline-none mr-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path></svg>
+                </a>
+            </div>
+            <div class="flex-grow text-center text-2xl font-bold tracking-wider">BWN</div>
+            <div class="flex items-center space-x-4">
+                <div class="relative hidden md:block">
+                    <input type="text" placeholder="Buscar" class="w-48 px-4 py-2 text-sm text-gray-800 rounded-full focus:outline-none">
+                    <svg class="w-5 h-5 text-gray-500 absolute right-3 top-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                </div>
+                <button class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner da Categoria -->
+    <div class="relative w-full h-40 overflow-hidden shadow-lg mt-0">
+        <img src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/06/Educa%C3%A7%C3%A3o-Especial_Curso-Desenho-Universal.jpg" alt="Banner da Categoria Educação" class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <h1 class="absolute bottom-4 left-4 text-3xl font-bold text-white">Educação</h1>
+    </div>
+
+    <main class="container mx-auto px-4 mt-8">
+        <h2 class="text-2xl font-bold mb-4">Principais Notícias</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!--  Notícia 1 -->
+            <a href="pagina29.html" class="bg-white rounded-xl shadow-md overflow-hidden block hover:shadow-xl transition-shadow duration-300">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtXjGK1iJHR2VlyczmTkb4kmbERhAQq0I4qw&s" alt="Imagem relacionada a Inteligência Artificial e Educação" class="w-full h-40 object-cover">
+                <div class="p-4">
+                    <p class="text-gray-600">Uso de inteligência artificial cresce no Brasil e impacta educação</p>
+                </div>
+            </a>
+            <!-- Notícia 2 -->
+            <a href="./pagina30.html" class="bg-white rounded-xl shadow-md overflow-hidden block hover:shadow-xl transition-shadow duration-300">
+                <img src="https://www.blogdobrunolira.com.br/wp-content/uploads/2022/04/5de19710bf90b8c2c6cc8e97_GettyImages-1069239598-1.jpg" alt="Imagem relacionada a professor e aluno" class="w-full h-40 object-cover">
+                <div class="p-4">
+                    <p class="text-gray-600">Brasil tem maior número de aluno por professor em faculdades privadas</p>
+                </div>
+            </a>
+            </div>
+    </main>
+</body>
+</html>
