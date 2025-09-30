@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login BWN</title>
+    
+    <!-- 1. Carregamento do Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Carregamento do Font Awesome para ícones -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     
+    <!-- 3. Carregamento do seu arquivo CSS customizado -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- A tag <style> que continha o CSS customizado foi removida daqui -->
 </head>
 <body class="flex flex-col h-screen">
 
@@ -28,46 +35,113 @@
             </div>
 
             
-            <div class="bg-gray-300 p-8 rounded-lg shadow-xl w-full max-w-sm flex flex-col items-center">
-                <div class="p-4 bg-white rounded-full mb-6 shadow-inner">
-                    <i class="fas fa-user text-gray-600 text-3xl"></i>
+            <div class="bg-gray-200 p-8 rounded-xl shadow-2xl w-full max-w-sm flex flex-col items-center border border-gray-300">
+                <div class="p-4 bg-blue-500 rounded-full mb-6 shadow-lg">
+                    <i class="fas fa-user text-white text-3xl"></i>
                 </div>
                 
                 <form id="login-form" class="w-full space-y-4">
-                    
+    
                     <div class="flex flex-col items-start">
                         <label for="email" class="text-gray-700 font-medium">Email:</label>
-                        <input type="email" id="email" placeholder="Digite aqui..." class="mt-1 p-3 rounded-lg border border-gray-400 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300" required>
+                        <input type="email" id="email" placeholder="Digite aqui..." class="mt-1 p-3 rounded-lg border border-gray-400 w-full focus:outline-none focus:ring-4 focus:ring-blue-400 transition duration-300 shadow-inner" required>
                     </div>
                     
                     
                     <div class="flex flex-col items-start">
                         <label for="password" class="text-gray-700 font-medium">Senha:</label>
-                        <input type="password" id="password" placeholder="Digite aqui..." class="mt-1 p-3 rounded-lg border border-gray-400 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300" required>
+                        <input type="password" id="password" placeholder="Digite aqui..." class="mt-1 p-3 rounded-lg border border-gray-400 w-full focus:outline-none focus:ring-4 focus:ring-blue-400 transition duration-300 shadow-inner" required>
                     </div>
 
-                    <a href="#" class="text-blue-700 text-sm font-semibold hover:underline self-start">Esqueceu a senha</a>
+                    <a href="#" class="text-blue-700 text-sm font-semibold hover:underline self-start block pt-2">Esqueceu a senha</a>
                     
                     
-                    <div class="flex justify-between items-center mt-6 space-x-4">
-                        <button type="reset" class="bg-gradient-blue text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 transform hover:scale-105">Refazer</button>
-                        <button type="submit" class="bg-gradient-blue text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 transform hover:scale-105" >Entrar</button>
+                    <div class="flex justify-between items-center mt-6 space-x-4 pt-4">
+                        <button type="reset" class="bg-gray-500 text-white font-bold py-2 px-6 rounded-xl shadow-md hover:bg-gray-600 transition duration-300 transform hover:scale-105">Refazer</button>
+                        <!-- O botão 'Entrar' agora é um botão de submit do formulário -->
+                        <button type="submit" id="btn-entrar" class="bg-gradient-blue text-white font-bold py-2 px-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105" >Entrar</button>
                     </div>
                 </form>
             </div>
         </div>
     </main>
 
-    
+    <!-- Caixa de Mensagem (Modal) -->
+    <!-- Este modal agora só será usado em caso de falha de login -->
     <div id="message-box" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center hidden z-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
-            <h2 id="message-title" class="text-xl font-bold mb-2"></h2>
+        <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm w-full text-center border-4 border-blue-500">
+            <h2 id="message-title" class="text-xl font-bold mb-2 text-blue-600"></h2>
             <p id="message-text" class="text-gray-700 mb-4"></p>
-            <button id="message-close" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">OK</button>
+            <button id="message-close" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-xl hover:bg-blue-700 transition duration-300 shadow-md">OK</button>
         </div>
     </div>
 
-    
-    <script src="script.js"></script>
+    <!-- Script JavaScript para Redirecionamento e Modal -->
+    <script>
+        // Função para mostrar a caixa de mensagem (modal) - Usada apenas para ERROS de validação
+        function showMessage(title, message, callback) {
+            document.getElementById('message-title').textContent = title;
+            document.getElementById('message-text').textContent = message;
+            const messageBox = document.getElementById('message-box');
+            messageBox.classList.remove('hidden');
+
+            const closeButton = document.getElementById('message-close');
+            // Remove qualquer listener anterior para evitar múltiplas execuções
+            closeButton.onclick = null; 
+            
+            // Adiciona o novo listener para fechar e executar o callback (se houver)
+            closeButton.onclick = function() {
+                messageBox.classList.add('hidden');
+                if (callback) {
+                    callback();
+                }
+            };
+
+            // Adiciona a funcionalidade de fechar clicando no fundo
+            messageBox.onclick = function(event) {
+                if (event.target === messageBox) {
+                    messageBox.classList.add('hidden');
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+        }
+
+        // 1. Obter o formulário pelo ID
+        const loginForm = document.getElementById('login-form');
+
+        // 2. Adicionar o EventListener para o evento de 'submit' (envio) do formulário
+        loginForm.addEventListener('submit', function(event) {
+            // Previne o comportamento padrão do formulário (que seria tentar enviar para um servidor)
+            event.preventDefault(); 
+            
+            // ************ LÓGICA DE LOGIN (SIMULAÇÃO) ************
+            
+            // Pega os valores dos campos (opcional, mas recomendado)
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Simulação de verificação de credenciais.
+            // Verifica se os campos não estão vazios
+            const loginSuccess = (email.trim() !== '' && password.trim() !== ''); 
+            
+            // *******************************************************
+
+            if (loginSuccess) {
+                // Login bem-sucedido
+                const targetPage = 'segundapagina.html';
+                
+                // *** REDIRECIONAMENTO IMEDIATO SEM MODAL ***
+                window.location.href = targetPage;
+                
+            } else {
+                // Login falhou (se os campos estiverem vazios)
+                // Usamos o modal para dar feedback ao usuário
+                showMessage('Erro de Login', 'Por favor, preencha o email e a senha para continuar.', null);
+            }
+        });
+
+    </script>
 </body>
 </html>
