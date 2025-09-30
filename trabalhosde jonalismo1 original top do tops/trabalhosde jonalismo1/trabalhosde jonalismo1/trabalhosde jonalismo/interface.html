@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interface BWN</title>
+    <title>BWN Podcast Player</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -14,27 +14,51 @@
         .bg-bwn-blue {
              background-image: linear-gradient(to right, #2c3e50, #3498db);
         }
+        /* Estilo para a barra de volume (webkits) */
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #3498db;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+        /* Esconde a barra de rolagem mas permite o scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        /* Estilo para o player de áudio (desktop/mobile) */
+        .audio-player-card {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
     </style>
 </head>
 <body class="bg-[#f0f2f5]">
     <div class="min-h-screen flex flex-col">
-        
+
+        <!-- Header -->
         <header class="bg-bwn-blue text-white p-4 flex items-center justify-between shadow-md">
-            
-            <button id="backButton" class="text-white">
+            <!-- Botão/Link de Voltar, agora apontando para a página principal (index.html) -->
+            <a href="./segundapagina.html" class="text-white p-2 rounded-full hover:bg-white hover:bg-opacity-10 transition-colors" aria-label="Voltar para a lista de podcasts">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
-            </button>
-            <div class="flex-grow flex justify-center text-xl font-bold uppercase">BWN</div>
+            </a>
+            <div class="flex-grow flex justify-center text-xl font-bold uppercase tracking-widest">BWN PODCAST</div>
             <div class="flex items-center space-x-4">
                 <div class="relative hidden sm:block">
-                    <input type="text" placeholder="Buscar" class="w-full pl-4 pr-10 py-1 rounded-full bg-white bg-opacity-20 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input type="text" placeholder="Buscar episódios" class="w-full sm:w-48 pl-4 pr-10 py-1 rounded-full bg-white bg-opacity-20 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-white placeholder-opacity-70">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </div>
-                <button class="text-white">
+                <button class="text-white p-2 rounded-full hover:bg-white hover:bg-opacity-10 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
@@ -42,62 +66,364 @@
             </div>
         </header>
 
-        
-        <main class="flex-grow p-6 flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
-            <div class="flex-1 flex flex-col">
-                <h1 class="text-2xl font-bold text-[#1a202c] mb-6">Podcasts</h1>
-                
-                <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                    <div class="bg-gray-400 w-full h-48"></div>
-                    <div class="p-6">
-                        <h2 class="text-xl font-semibold mb-2 text-gray-800">Título do Podcast</h2>
-                        <p class="text-sm text-gray-600 mb-4">Descrição curta e detalhada sobre o conteúdo do podcast. [Imagem de Fundo de um Podcast]</p>
-                        <div class="flex items-center justify-between">
-                            <span class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">AO VIVO</span>
-                            <button class="bg-bwn-blue text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-opacity-90 transition-colors">Assistir</button>
+        <!-- Main Content & Sidebar -->
+        <main class="flex-grow p-4 sm:p-6 flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
+
+            <!-- Player e Lista de Episódios -->
+            <div class="flex-1 flex flex-col space-y-6">
+                <h1 class="text-3xl font-extrabold text-[#1a202c] mb-2">Podcast: O Mundo Digital</h1>
+
+                <!-- Player Principal -->
+                <div class="audio-player-card bg-white rounded-xl overflow-hidden p-6 lg:p-8">
+                    <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
+                        <!-- Capa do Episódio -->
+                        <div id="episodeCover" class="w-32 h-32 md:w-40 md:h-40 rounded-lg bg-gray-400 flex-shrink-0 shadow-lg" style="background-image: url('https://placehold.co/160x160/2c3e50/ffffff?text=BWN'); background-size: cover;">
+                        </div>
+
+                        <!-- Info e Controles -->
+                        <div class="flex-grow w-full">
+                            <h2 id="currentEpisodeTitle" class="text-2xl font-bold text-gray-800 mb-1">Carregando Episódio...</h2>
+                            <p id="currentEpisodeDescription" class="text-sm text-gray-600 mb-4">Selecione um episódio da lista para começar a ouvir. [Imagem de Fundo de um Podcast]</p>
+
+                            <!-- Elemento de Áudio Oculto -->
+                            <audio id="audioElement" src="" style="display: none;"></audio>
+
+                            <!-- Controles de Reprodução -->
+                            <div class="flex items-center space-x-6 mb-4">
+                                <button id="playPauseButton" class="text-white bg-bwn-blue p-4 rounded-full shadow-lg hover:shadow-xl transition-shadow transform hover:scale-105">
+                                    <!-- Icone Play -->
+                                    <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4.004a1 1 0 001.555.832l3.248-2.002a1 1 0 000-1.664l-3.248-2.002z" clip-rule="evenodd" />
+                                    </svg>
+                                    <!-- Icone Pause (hidden initially) -->
+                                    <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                                <button id="skipBackward" class="text-gray-600 hover:text-bwn-blue transition-colors" title="Voltar 15s">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m4 14l-7-7 7-7" />
+                                    </svg>
+                                </button>
+                                <button id="skipForward" class="text-gray-600 hover:text-bwn-blue transition-colors" title="Avançar 30s">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7m-4-14l7 7-7 7" />
+                                    </svg>
+                                </button>
+                                
+                                <!-- Controle de Volume -->
+                                <div class="hidden sm:flex items-center space-x-2 text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M9.383 3.056A1 1 100 2 0 1010.597 1.132l.853 1.278A1 1 0 0112 3.056v13.888a1 1 0 01-.847.962l-.853 1.278A1 1 0 019.383 17v-1.637a1 1 0 00-1.288-.934 10.027 10.027 0 01-4.04-1.996 1 1 0 01-.397-.89l-.04-.268A1 1 0 014.28 12h-1a1 1 0 01-1-1V9a1 1 0 011-1h1a1 1 0 01.993.904l.03-.2a1 1 0 01.385-.88l4.053-2.02A1 1 0 009 5.637V3.056z" clip-rule="evenodd" />
+                                    </svg>
+                                    <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1" class="w-20 h-1 bg-gray-200 rounded-full appearance-none cursor-pointer">
+                                </div>
+                            </div>
+                            
+                            <!-- Barra de Progresso e Tempo -->
+                            <div class="w-full">
+                                <input type="range" id="progressBar" min="0" max="100" value="0" class="w-full h-2 bg-gray-300 rounded-full appearance-none cursor-pointer mb-2">
+                                <div class="flex justify-between text-sm text-gray-500">
+                                    <span id="currentTime">00:00</span>
+                                    <span id="duration">00:00</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Lista de Episódios -->
+                <div class="bg-white rounded-xl shadow-md p-4">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Últimos Episódios</h2>
+                    <div id="episodesList" class="space-y-3">
+                        <!-- Episódios serão injetados aqui pelo JavaScript -->
+                    </div>
+                </div>
+
             </div>
 
-            
-            <aside class="w-full lg:w-80 bg-white rounded-lg shadow-md flex flex-col">
-                <div class="p-4 border-b border-gray-200">
-                    <h2 class="text-lg font-semibold text-gray-800">CHAT AO VIVO</h2>
+            <!-- CHAT AO VIVO (Sidebar) -->
+            <aside class="w-full lg:w-80 bg-white rounded-xl shadow-md flex flex-col flex-shrink-0">
+                <div class="p-4 border-b border-gray-200 bg-gray-50 rounded-t-xl">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center">
+                        <span class="relative flex h-3 w-3 mr-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                        </span>
+                        CHAT AO VIVO
+                    </h2>
                 </div>
-                <div class="flex-grow p-4 overflow-y-auto space-y-4">
-                    
+                <!-- Área de Mensagens (Scrollable) -->
+                <div id="chatMessages" class="flex-grow p-4 overflow-y-auto space-y-4 no-scrollbar h-64 lg:h-auto">
+                    <!-- Mensagens de Exemplo -->
                     <div class="flex items-start space-x-3">
-                        <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.914A5.994 5.994 0 0110 16a5.994 5.994 0 014.546-2.086A5 5 0 0010 11z" clip-rule="evenodd" />
-                            </svg>
+                        <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-bold text-sm">A</div>
+                        <div class="flex-1 bg-blue-100 p-3 rounded-lg rounded-tl-none">
+                            <p class="font-semibold text-xs text-blue-800 mb-1">Alice</p>
+                            <p class="text-sm text-gray-800">Excelente tópico! Estou adorando a discussão sobre I.A. 👏</p>
                         </div>
-                        <div class="flex-1 bg-gray-100 p-3 rounded-lg">
-                            <p class="text-sm text-gray-800">Olá a todos! [Imagem de um avatar de uma pessoa]</p>
+                    </div>
+                    <div class="flex justify-end">
+                         <div class="flex items-start space-x-3 flex-row-reverse">
+                            <div class="w-8 h-8 rounded-full bg-bwn-blue flex items-center justify-center text-white font-bold text-sm">V</div>
+                            <div class="flex-1 bg-green-100 p-3 rounded-lg rounded-tr-none">
+                                <p class="font-semibold text-xs text-green-800 mb-1">Você</p>
+                                <p class="text-sm text-gray-800">Alguém tem alguma previsão para o futuro do metaverso? 🤔</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold text-sm">R</div>
+                        <div class="flex-1 bg-gray-100 p-3 rounded-lg rounded-tl-none">
+                            <p class="font-semibold text-xs text-gray-700 mb-1">Roberto</p>
+                            <p class="text-sm text-gray-800">A qualidade do áudio está perfeita hoje!</p>
                         </div>
                     </div>
                 </div>
+                <!-- Input de Mensagem -->
                 <div class="p-4 border-t border-gray-200 flex items-center space-x-3">
-                    <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.914A5.994 5.994 0 0110 16a5.994 5.994 0 014.546-2.086A5 5 0 0010 11z" clip-rule="evenodd" />
+                    <input type="text" placeholder="Escreva seu comentário (Simulação)..." class="flex-1 px-4 py-2 rounded-full border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-bwn-blue transition-all" disabled>
+                    <button class="bg-gray-200 text-gray-500 p-2 rounded-full cursor-not-allowed">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.54V8.56a1 1 0 012 0v6.98l4 1.429a1 1 0 001.169-1.409l-7-14z" />
                         </svg>
-                    </div>
-                    <input type="text" placeholder="Escreva aqui seu comentário..." class="flex-1 px-4 py-2 rounded-full border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    </button>
                 </div>
             </aside>
         </main>
+        
     </div>
+
     <script>
-        document.getElementById('backButton').addEventListener('click', function() {
-            if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                
-                console.log("Não há histórico de navegação para voltar.");
+        // Dados de simulação para os episódios (Substitua os links 'audio.mp3' por links de áudio reais)
+        const episodes = [
+            {
+                id: 1,
+                title: "Episódio 03: O Futuro da Inteligência Artificial",
+                description: "Analisamos os avanços mais recentes em I.A. e o impacto no mercado de trabalho.",
+                audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // Exemplo de MP3
+                coverUrl: "https://placehold.co/160x160/3498db/ffffff?text=IA"
+            },
+            {
+                id: 2,
+                title: "Episódio 02: Blockchain e Criptomoedas",
+                description: "Um mergulho na tecnologia blockchain, NFTs e o futuro descentralizado da web.",
+                audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", // Exemplo de MP3
+                coverUrl: "https://placehold.co/160x160/2ecc71/ffffff?text=BLOCK"
+            },
+            {
+                id: 3,
+                title: "Episódio 01: Primeiros Passos no Código",
+                description: "Como começar sua carreira em programação e quais linguagens aprender primeiro.",
+                audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", // Exemplo de MP3
+                coverUrl: "https://placehold.co/160x160/f1c40f/333333?text=CODIGO"
             }
+        ];
+
+        // Referências DOM
+        const audioElement = document.getElementById('audioElement');
+        const playPauseButton = document.getElementById('playPauseButton');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+        const progressBar = document.getElementById('progressBar');
+        const currentTimeDisplay = document.getElementById('currentTime');
+        const durationDisplay = document.getElementById('duration');
+        const volumeControl = document.getElementById('volumeControl');
+        const episodesList = document.getElementById('episodesList');
+        const currentEpisodeTitle = document.getElementById('currentEpisodeTitle');
+        const currentEpisodeDescription = document.getElementById('currentEpisodeDescription');
+        const episodeCover = document.getElementById('episodeCover');
+        const skipForwardButton = document.getElementById('skipForward');
+        const skipBackwardButton = document.getElementById('skipBackward');
+        let currentEpisodeId = null;
+
+        // --- Funções Auxiliares ---
+
+        // Converte segundos para formato MM:SS
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            const paddedMinutes = String(minutes).padStart(2, '0');
+            const paddedSeconds = String(remainingSeconds).padStart(2, '0');
+            return `${paddedMinutes}:${paddedSeconds}`;
+        }
+
+        // --- Funções de Controle do Player ---
+
+        function togglePlayPause() {
+            if (audioElement.paused) {
+                if (currentEpisodeId === null) {
+                    // Tenta carregar o primeiro episódio se nenhum estiver carregado
+                    loadEpisode(episodes[0]);
+                }
+                audioElement.play().catch(error => {
+                    console.error("Erro ao tentar reproduzir áudio:", error);
+                    // Mensagem amigável para o usuário caso o play automático falhe
+                    alertBox("A reprodução automática falhou. Por favor, interaja com o player.");
+                });
+            } else {
+                audioElement.pause();
+            }
+        }
+
+        function updatePlayPauseIcon() {
+            if (audioElement.paused) {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+            } else {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            }
+        }
+
+        function updateProgress() {
+            const duration = isFinite(audioElement.duration) ? audioElement.duration : 0;
+            const currentTime = audioElement.currentTime;
+            const progressPercent = (currentTime / duration) * 100;
+            
+            progressBar.value = progressPercent;
+            currentTimeDisplay.textContent = formatTime(currentTime);
+
+            if (duration > 0) {
+                durationDisplay.textContent = formatTime(duration);
+            }
+        }
+
+        function seekTo(event) {
+            const percent = event.target.value;
+            const duration = audioElement.duration;
+            audioElement.currentTime = (percent / 100) * duration;
+        }
+        
+        function skip(seconds) {
+            if (currentEpisodeId === null) {
+                 alertBox("Selecione um episódio primeiro!");
+                 return;
+            }
+            audioElement.currentTime += seconds;
+        }
+
+        function updateVolume(event) {
+            audioElement.volume = event.target.value;
+        }
+        
+        // Simulação de Modal (já que alert() é proibido)
+        function alertBox(message) {
+            console.log("ALERTA: " + message);
+            // Poderia criar um modal visual aqui
+            const tempDiv = document.createElement('div');
+            tempDiv.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+            tempDiv.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full text-center">
+                    <p class="text-lg font-semibold mb-4 text-gray-800">${message}</p>
+                    <button onclick="this.parentElement.parentElement.remove()" class="bg-bwn-blue text-white px-4 py-2 rounded-full hover:bg-opacity-90">OK</button>
+                </div>
+            `;
+            document.body.appendChild(tempDiv);
+        }
+
+        // --- Função de Carregamento de Episódio ---
+
+        function loadEpisode(episode) {
+            currentEpisodeId = episode.id;
+            audioElement.src = episode.audioUrl;
+            currentEpisodeTitle.textContent = episode.title;
+            currentEpisodeDescription.textContent = episode.description;
+            episodeCover.style.backgroundImage = `url('${episode.coverUrl}')`;
+            
+            // Remove a classe 'active' de todos os itens e adiciona ao item clicado
+            document.querySelectorAll('.episode-item').forEach(item => {
+                item.classList.remove('bg-blue-50', 'border-bwn-blue');
+                item.classList.add('hover:bg-gray-50');
+            });
+            const activeItem = document.querySelector(`.episode-item[data-id="${episode.id}"]`);
+            if (activeItem) {
+                activeItem.classList.add('bg-blue-50', 'border-bwn-blue');
+                activeItem.classList.remove('hover:bg-gray-50');
+            }
+
+            // O áudio é carregado, mas não começa a tocar automaticamente
+            audioElement.load();
+            audioElement.addEventListener('loadedmetadata', () => {
+                 durationDisplay.textContent = formatTime(audioElement.duration);
+            }, { once: true });
+            
+            updatePlayPauseIcon();
+        }
+
+        // --- Função de Renderização da Lista de Episódios ---
+
+        function renderEpisodes() {
+            episodes.forEach(episode => {
+                const item = document.createElement('div');
+                item.className = 'episode-item p-3 rounded-lg border border-gray-200 cursor-pointer transition-colors hover:bg-gray-50 flex space-x-3 items-center';
+                item.setAttribute('data-id', episode.id);
+                
+                // Capa miniatura
+                const cover = document.createElement('div');
+                cover.className = 'w-12 h-12 rounded-md flex-shrink-0 shadow';
+                cover.style.backgroundImage = `url('${episode.coverUrl}')`;
+                cover.style.backgroundSize = 'cover';
+
+                // Texto
+                const info = document.createElement('div');
+                info.className = 'flex-grow min-w-0';
+                info.innerHTML = `
+                    <p class="text-sm font-semibold text-gray-800 truncate">${episode.title}</p>
+                    <p class="text-xs text-gray-500 line-clamp-2">${episode.description}</p>
+                `;
+
+                item.appendChild(cover);
+                item.appendChild(info);
+
+                item.addEventListener('click', () => {
+                    // Se clicar no episódio que já está ativo, apenas troca o estado
+                    if (currentEpisodeId === episode.id && !audioElement.paused) {
+                        togglePlayPause();
+                    } else {
+                         // Se for um novo episódio ou estiver pausado, carrega e toca
+                        loadEpisode(episode);
+                        togglePlayPause();
+                    }
+                });
+                
+                episodesList.appendChild(item);
+            });
+            
+            // Carrega o primeiro episódio por padrão na inicialização
+            if (episodes.length > 0) {
+                loadEpisode(episodes[0]);
+            }
+        }
+
+        // --- Event Listeners ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderEpisodes();
         });
+
+        playPauseButton.addEventListener('click', togglePlayPause);
+        skipForwardButton.addEventListener('click', () => skip(30));
+        skipBackwardButton.addEventListener('click', () => skip(-15));
+        
+        // Eventos do elemento de áudio
+        audioElement.addEventListener('play', updatePlayPauseIcon);
+        audioElement.addEventListener('pause', updatePlayPauseIcon);
+        audioElement.addEventListener('timeupdate', updateProgress);
+        audioElement.addEventListener('loadedmetadata', updateProgress); // Define a duração inicial
+        audioElement.addEventListener('ended', () => {
+            updatePlayPauseIcon();
+            progressBar.value = 0;
+            currentTimeDisplay.textContent = formatTime(0);
+        });
+
+        // Eventos da barra de progresso (arrastar)
+        progressBar.addEventListener('input', seekTo);
+
+        // Evento do controle de volume
+        volumeControl.addEventListener('input', updateVolume);
+
+        
     </script>
 </body>
 </html>
