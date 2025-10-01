@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login BWN</title>
     
-    <!-- 1. Carregamento do Tailwind CSS (CDN) -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- 2. Carregamento do Font Awesome para ícones -->
+    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     
-    <!-- 3. Carregamento do seu arquivo CSS customizado -->
+    
     <link rel="stylesheet" href="style.css">
 
-    <!-- A tag <style> que continha o CSS customizado foi removida daqui -->
+    
 </head>
 <body class="flex flex-col h-screen">
 
@@ -58,7 +58,7 @@
                     
                     <div class="flex justify-between items-center mt-6 space-x-4 pt-4">
                         <button type="reset" class="bg-gray-500 text-white font-bold py-2 px-6 rounded-xl shadow-md hover:bg-gray-600 transition duration-300 transform hover:scale-105">Refazer</button>
-                        <!-- O botão 'Entrar' agora é um botão de submit do formulário -->
+                        
                         <button type="submit" id="btn-entrar" class="bg-gradient-blue text-white font-bold py-2 px-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105" >Entrar</button>
                     </div>
                 </form>
@@ -66,8 +66,7 @@
         </div>
     </main>
 
-    <!-- Caixa de Mensagem (Modal) -->
-    <!-- Este modal agora só será usado em caso de falha de login -->
+    
     <div id="message-box" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center hidden z-50">
         <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm w-full text-center border-4 border-blue-500">
             <h2 id="message-title" class="text-xl font-bold mb-2 text-blue-600"></h2>
@@ -76,9 +75,9 @@
         </div>
     </div>
 
-    <!-- Script JavaScript para Redirecionamento e Modal -->
+    
     <script>
-        // Função para mostrar a caixa de mensagem (modal) - Usada apenas para ERROS de validação
+        
         function showMessage(title, message, callback) {
             document.getElementById('message-title').textContent = title;
             document.getElementById('message-text').textContent = message;
@@ -86,10 +85,10 @@
             messageBox.classList.remove('hidden');
 
             const closeButton = document.getElementById('message-close');
-            // Remove qualquer listener anterior para evitar múltiplas execuções
+            
             closeButton.onclick = null; 
             
-            // Adiciona o novo listener para fechar e executar o callback (se houver)
+            
             closeButton.onclick = function() {
                 messageBox.classList.add('hidden');
                 if (callback) {
@@ -97,7 +96,7 @@
                 }
             };
 
-            // Adiciona a funcionalidade de fechar clicando no fundo
+            
             messageBox.onclick = function(event) {
                 if (event.target === messageBox) {
                     messageBox.classList.add('hidden');
@@ -108,36 +107,32 @@
             };
         }
 
-        // 1. Obter o formulário pelo ID
+        
         const loginForm = document.getElementById('login-form');
 
-        // 2. Adicionar o EventListener para o evento de 'submit' (envio) do formulário
+        
         loginForm.addEventListener('submit', function(event) {
-            // Previne o comportamento padrão do formulário (que seria tentar enviar para um servidor)
+            
             event.preventDefault(); 
             
-            // ************ LÓGICA DE LOGIN (SIMULAÇÃO) ************
             
-            // Pega os valores dos campos (opcional, mas recomendado)
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            // Simulação de verificação de credenciais.
-            // Verifica se os campos não estão vazios
+            
             const loginSuccess = (email.trim() !== '' && password.trim() !== ''); 
             
-            // *******************************************************
+            
 
             if (loginSuccess) {
-                // Login bem-sucedido
+                
                 const targetPage = 'segundapagina.html';
                 
-                // *** REDIRECIONAMENTO IMEDIATO SEM MODAL ***
+                
                 window.location.href = targetPage;
                 
             } else {
-                // Login falhou (se os campos estiverem vazios)
-                // Usamos o modal para dar feedback ao usuário
+                
                 showMessage('Erro de Login', 'Por favor, preencha o email e a senha para continuar.', null);
             }
         });
